@@ -20,7 +20,7 @@ class RepositoryImpl : Repository {
     }
 
     override suspend fun getFriendsListRx(page: Int): Single<FriendsResponse> {
-        return RetrofitInstance.api.getFriendsListRx(page, "")
+        return RetrofitInstance.retrofitRx.getFriendsListRx(page, "")
     }
 
 

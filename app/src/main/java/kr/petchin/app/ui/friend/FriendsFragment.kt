@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import io.reactivex.rxjava3.schedulers.Schedulers
 import kr.petchin.app.adapter.friend_adpater_recview
 import kr.petchin.app.adapter.talk_adpater_recview
 import kr.petchin.app.databinding.FragmentFriendBinding
@@ -81,6 +82,7 @@ class FriendsFragment : Fragment() {
         friendsViewModel._totalCnt.observe(viewLifecycleOwner, Observer {
             recordCount = it
         })
+        //friendsViewModel.getListRx(page)
         return root
     }
     /*

@@ -1,6 +1,8 @@
 package kr.petchin.app.retrofit
 
+import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
 import kr.petchin.app.lib.Constants.BASE_URL
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -16,6 +18,16 @@ object RetrofitInstance {
 
     val api : RetrofitApi by lazy {
         retrofit.create(RetrofitApi::class.java)
+    }
+
+    val retrofitRx by lazy {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(OkHttpClient())
+            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(RetrofitApi::class.java)
     }
 /*
     val retrofit= Retrofit.Builder()
