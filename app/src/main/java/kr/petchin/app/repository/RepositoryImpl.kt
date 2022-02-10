@@ -1,5 +1,6 @@
 package kr.petchin.app.repository
 
+import io.reactivex.rxjava3.core.Single
 import kr.petchin.app.data.FriendsResponse
 import kr.petchin.app.data.talkListData
 import kr.petchin.app.data.TalkListResponse
@@ -16,6 +17,10 @@ class RepositoryImpl : Repository {
 
     override suspend fun getFriendsList(page: Int): Response<FriendsResponse> {
         return RetrofitInstance.api.getFriendsList(page, "")
+    }
+
+    override suspend fun getFriendsListRx(page: Int): Single<FriendsResponse> {
+        return RetrofitInstance.api.getFriendsListRx(page, "")
     }
 
 

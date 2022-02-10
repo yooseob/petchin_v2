@@ -43,6 +43,11 @@ class HomeFragment : Fragment() {
             .map { it.dropLast(1) } // 변환 연산자 : 데이터의 가공 (뒷자리 하나 제거)
             .subscribe(::println) // 소비자 : 데이터를 받아서 처리 (println)
 
+        val observer = Observable.just(11, 12, 13)
+            .map {
+                if (it == 12) throw IllegalStateException() // 12에 에러
+                else it
+            }
 
 
         return root

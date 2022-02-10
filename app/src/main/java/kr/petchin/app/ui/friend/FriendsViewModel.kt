@@ -43,4 +43,7 @@ class FriendsViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
+    fun getListRx(page: Int) {
+
+    }
 }
