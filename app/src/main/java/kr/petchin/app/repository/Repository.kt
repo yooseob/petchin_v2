@@ -15,7 +15,7 @@ interface Repository {
     //fun getUsers(): Single<List<talkListResponse>>
     fun getTalkList(page : Int) : Call<TalkListResponse>
     suspend fun getFriendsList(page : Int) : Response<FriendsResponse>
-    suspend fun getFriendsListRx(page : Int) : Single<FriendsResponse>
+    fun getFriendsListRx(page : Int) : Single<FriendsResponse>
     //@GET("posts/{post}")
     //fun getPosts(@Path("post") post: String?): Call<PostResult?>?
 }

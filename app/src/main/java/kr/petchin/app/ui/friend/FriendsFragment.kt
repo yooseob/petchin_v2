@@ -82,7 +82,7 @@ class FriendsFragment : Fragment() {
         friendsViewModel._totalCnt.observe(viewLifecycleOwner, Observer {
             recordCount = it
         })
-        //friendsViewModel.getListRx(page)
+        friendsViewModel.getListRx2(page)
         return root
     }
     /*

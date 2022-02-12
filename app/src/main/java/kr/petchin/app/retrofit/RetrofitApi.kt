@@ -31,7 +31,7 @@ interface RetrofitApi {
     ): Response<FriendsResponse>//반환하는 값 rxJava나 코루틴사용시는 response로 변경
 
     @GET("api/getrecipelist.asp")
-    suspend fun getFriendsListRx(
+    fun getFriendsListRx(
         @Query("p") page: Int,
         @Query("keyword") keyword: String //요구하는 기본인자를 @Query형태로
     ): Single<FriendsResponse>//반환하는 값 rxJava나 코루틴사용시는 response로 변경
