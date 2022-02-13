@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kr.petchin.app.adapter.friend_adpater_recview
 import kr.petchin.app.adapter.talk_adpater_recview
@@ -40,7 +41,7 @@ class FriendsFragment : Fragment() {
     private var isLoading : Boolean = false
     private var keyword : String = ""
     private val myClass : myclass = myclass()
-
+    private var disposable: Disposable? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -94,6 +95,7 @@ class FriendsFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        disposable?.let{ disposable!!.dispose() }
     }
 
     fun rowClick(){
