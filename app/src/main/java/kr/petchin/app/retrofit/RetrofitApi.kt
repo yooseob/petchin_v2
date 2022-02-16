@@ -17,6 +17,11 @@ interface RetrofitApi {
         "X-NCP-APIGW-API-KEY-ID: (발급 받은 Client ID)",
         "X-NCP-APIGW-API-KEY: (발급 받은 Secret Key)"
     )
+
+    @Header("X-Naver-Client-Id") String id,
+    @Header("X-Naver-Client-Secret") String pw,
+    @Path("type") String type,
+    @Query("p") page: Int,
  */
     @GET("api/getrecipelist.asp")
     fun getTalkList(

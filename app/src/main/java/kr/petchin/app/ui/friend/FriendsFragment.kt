@@ -72,7 +72,8 @@ class FriendsFragment : Fragment() {
         //binding.talkRecView.addItemDecoration(spaceDecoration)
 
 
-        friendsViewModel.getList(page)
+        //friendsViewModel.getList(page)
+        friendsViewModel.getListRx2(page)
         friendsViewModel._friendResponse.observe(viewLifecycleOwner, Observer {
 
             friendAdapter.setData(it!!)
@@ -83,7 +84,7 @@ class FriendsFragment : Fragment() {
         friendsViewModel._totalCnt.observe(viewLifecycleOwner, Observer {
             recordCount = it
         })
-        friendsViewModel.getListRx2(page)
+
         return root
     }
     /*
@@ -114,7 +115,7 @@ class FriendsFragment : Fragment() {
                 if (lastVisibleItemPosition == itemTotalCount) {
                     if(recordCount>0){
                         page++
-                        friendsViewModel.getList(page)
+                        friendsViewModel.getListRx2(page)
                     }
                 }
 

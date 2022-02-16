@@ -1,27 +1,27 @@
 package kr.petchin.app.ui.friend
 
 import android.util.Log
-import android.widget.Toast
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Scheduler
-import io.reactivex.rxjava3.kotlin.subscribeBy
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers.mainThread
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
-import io.reactivex.rxjava3.schedulers.Schedulers.io
+import io.reactivex.rxjava3.schedulers.Schedulers.newThread
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kr.petchin.app.data.FriendsResponse
 import kr.petchin.app.data.FriendsResultResponse
+import kr.petchin.app.lib.Constants.TAG
 import kr.petchin.app.repository.Repository
+
 
 class FriendsViewModel(private val repository: Repository) : ViewModel() {
 
     val _friendResponse : MutableLiveData<List<FriendsResultResponse>> = MutableLiveData()
     var _totalCnt = MutableLiveData<Int>()
+    private val disposables = CompositeDisposable()
 
     fun test(){
         Log.d("2222222", "test: 222222")
@@ -56,21 +56,31 @@ class FriendsViewModel(private val repository: Repository) : ViewModel() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe ({  { println(it) } }, { e -> println("RX="+e.toString()) })
 
+         repository.getFriendsListRx(page)
+             .subscribeOn(Schedulers.io())
+             .observeOn(AndroidSchedulers.mainThread())
+             .subscribe({Log.d("Log1", "Logging");},{});
+
+         repository.getFriendsListRx(page)
+             .subscribeOn(newThread())
+             .observeOn(mainThread())
+             .subscribe({
+                 Log.d("Log", "Logging");
+             },{})
+
     }
     fun getListRx2(page: Int) {
         Log.d("RXRX", "getListRx:")
         repository.getFriendsListRx(page)
-            .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
-            .subscribe({
-                // onNext
-                Log.d("!!!!!!!!!!!!!!!!", "get channel : $it")
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ it ->
+                _friendResponse.postValue(it.items)
+                _totalCnt.postValue(it.totalRecord)
+                Log.d("Log1", it.items.toString())
             }, {
-                // onError
+                Log.d(TAG, "getRepository Error: ${it.message}")
+            })
 
-            }, //{
-                // onComplete
-            //})
-            )
     }
 }
